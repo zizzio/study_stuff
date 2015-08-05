@@ -17,7 +17,7 @@ struct l_num_t
     {
         params_t(): base_size(5)
                   , max_size(1000000000)
-                  , max_base(pow(10., base_size))
+                  , max_base(pow((double)10., (int)base_size))
         {
         }
         size_t base_size;
@@ -69,49 +69,13 @@ l_num_t::l_num_t(string s)
 
 void l_num_t::print(int len)
 {
-//     char buffer[5];
-//     char buffer2[5];
-// 
-//     sprintf(buffer, "%s%d%s", "%0", params.base_size, "d");
-// 
-//     int empty_blocks = len / params.base_size - number.size();
-// 
-//     int first_block_len = len % params.base_size;
-//     
-//     if (len <= length)
-//         first_block_len = 0;
-//     else if (len % params.base_size == 0)
-//         first_block_len = params.base_size;
-//     
-//     for (int i = 0; i < empty_blocks; ++i)
-//     {
-//         printf(buffer, 0);
-//     }
-//     sprintf(buffer2, "%s%d%s", "%0", first_block_len, "d");   
-// 
-//     if (len > length && len % params.base_size != 0)
-//     {
-//         printf(buffer2, 0);
-//         sprintf(buffer2, "%s%d%s", "%0", params.base_size, "d");
-//     }
-// 
-//     printf(buffer2, number.empty() ? 0 : number.back());
-//     
-//     for (int i = (int)number.size() - 2; i >= 0; --i)
-//         printf(buffer, number[i]);
-
-    char *format = "%d";
-    char zero_format[20];
-    sprintf(zero_format, "%s%d%s", "%0", len - length, "d");
-
     if ( len - length > 0)
-        printf(zero_format, 0);
-
-    printf(format, number.empty() ? 0 : number.back());
-    
-    for (int i = (int)number.size() - 2; i >= 0; --i)
-        printf(format, number[i]);
-    printf("\n");
+        cout << setfill('0') << setw(len - length) << 0;
+    bool fl = number.empty();
+    cout << (fl ? 0 : number.back()); 
+    for (int i=(int)number.size() - 2; i >= 0; --i)
+        cout << setfill('0') << setw(l_num_t::params.base_size) << number[i];
+    //printf("\n");
 }
 
 ostream& operator << (std::ostream & os, l_num_t& lnum)
